@@ -141,12 +141,17 @@ form[action='wifisave'] p {
 }
 form[action='wifisave'] h2,
 form[action='wifisave']:before {
-    border-bottom: 2px solid rgba(0,0,0,.05);
+    border-bottom: 1px solid rgba(0,0,0,.05);
     padding: 10px 32px;
+    margin: 10px 0;
+    font-weight: bold;
     font-size: 1rem;
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
 }
 form[action='wifisave']:before {
-    content: 'WiFi Settings';
+    content: 'WiFi Details';
 }
 .c > a:after {
     content: 'Scan WiFi';
