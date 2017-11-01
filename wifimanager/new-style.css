@@ -134,6 +134,20 @@ form[action='wifisave'] input {
 form[action='wifisave'] input:focus {
     border-bottom: 1px solid #383c89;
 }
+
+form[action='wifisave'] p {
+    font-size: .8rem;
+    margin: 10px 32px;
+}
+form[action='wifisave'] h2,
+form[action='wifisave']:before {
+    border-bottom: 2px solid rgba(0,0,0,.05);
+    padding: 10px 32px;
+    font-size: 1rem;
+}
+form[action='wifisave']:before {
+    content: 'WiFi Settings';
+}
 .c > a:after {
     content: 'Scan WiFi';
     font-size: 1.2rem;
