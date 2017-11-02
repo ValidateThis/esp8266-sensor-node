@@ -70,7 +70,7 @@ void HandleSetup(const char* wifi_config_name, bool resetConf) {
   // ------------------------------------------------------
   // Read All Custom Options
   // ------------------------------------------------------
-  strncpy(host_name, custom_hostname.getValue(), 40);
+  strncpy(host_name, custom_hostname.getValue().trim().replace(" ","").toLowerCase(), 40);
   strncpy(passcode, custom_passcode.getValue(), 40);
   strncpy(port_str, custom_port.getValue(), 20);
   port = atoi(port_str);

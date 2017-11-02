@@ -1,3 +1,28 @@
+//
+//// Motion
+//homeassistant/sensor/vtsensor1pir/config
+//{
+//  "name":"VTSensor1 Motion" ,
+//  "expire_after":"4",
+//  "state_topic":"homeassistant/sensor/vtsensor1/state",
+//  "value_template":"{{ value_json.motion}}"
+//}
+//
+//homeassistant/binary_sensor/vtsensor2pir/config
+//{
+//  "name":"VTSensor2 Motion" ,
+//  "device_class":"motion",
+//  "state_topic":"homeassistant/sensor/vtsensor1/state",
+//  "payload_on":"motion detected",
+//  "payload_off":"standby",
+//  "value_template":"{{ value_json.motion}}"
+//}
+//
+//homeassistant/sensor/vtsensor1/state
+//{
+//  "motion":"motion detected"
+//}
+
 void setupMQTT() {
   client.setServer(mqtt_server, atoi(mqtt_port));
   client.setCallback(callback);
