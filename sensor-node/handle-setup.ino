@@ -70,7 +70,7 @@ void HandleSetup(const char* wifi_config_name, bool resetConf) {
   // ------------------------------------------------------
   // Read All Custom Options
   // ------------------------------------------------------
-  strncpy(host_name, custom_hostname.getValue().trim().replace(" ","").toLowerCase(), 40);
+  strncpy(host_name, custom_hostname.getValue(), 40);
   strncpy(passcode, custom_passcode.getValue(), 40);
   strncpy(port_str, custom_port.getValue(), 20);
   port = atoi(port_str);
@@ -79,6 +79,9 @@ void HandleSetup(const char* wifi_config_name, bool resetConf) {
     Serial.println("Default port changed");
     server = ESP8266WebServer(port);
   }
+
+  light_state_topic = "";
+  light_set_topic = "";
 
   strcpy(mqtt_server, custom_mqtt_server.getValue());
   strcpy(mqtt_port, custom_mqtt_port.getValue()); 

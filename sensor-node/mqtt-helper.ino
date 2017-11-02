@@ -1,13 +1,15 @@
 //
 //// Motion
-//homeassistant/sensor/vtsensor1pir/config
+//homeassistant/sensor/vtsensor1/pir/config
 //{
-//  "name":"VTSensor1 Motion" ,
-//  "expire_after":"4",
+//  "name":"VTSensor1 Motion",
+//  "device_class":"motion",
+//  "expire_after":"1",
 //  "state_topic":"homeassistant/sensor/vtsensor1/state",
 //  "value_template":"{{ value_json.motion}}"
 //}
-//
+
+
 //homeassistant/binary_sensor/vtsensor2pir/config
 //{
 //  "name":"VTSensor2 Motion" ,
@@ -39,6 +41,11 @@ void reconnect() {
       Serial.println("connected");
       client.publish("outTopic","hello world");
       client.subscribe("inTopic");  
+
+
+      // Setup the Motion sensor in HA
+      client.publish(String("homeassistant/sensor/" + String(host_name) + "/pir/config").c_str(),String("{\r\n  \"name\":\"" + String(host_name) + " motion test\" ,\r\n  \"device_class\":\"motion\",\r\n  \"expire_after\":\"1\",\r\n  \"state_topic\":\"homeassistant/sensor/" + String(host_name) + "/state\",\r\n  \"value_template\":\"{{ value_json.motion}}\"\r\n}").c_str());
+     
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -47,6 +54,34 @@ void reconnect() {
       delay(5000);
     }
   }
+}
+//
+void sendState() {
+  StaticJsonBuffer<BUFFER_SIZE> jsonBuffer;
+
+  JsonObject& root = jsonBuffer.createObject();
+
+  root["state"] = (stateOn) ? on_cmd : off_cmd;
+  JsonObject& color = root.createNestedObject("color");
+  color["r"] = red;
+  color["g"] = green;
+  color["b"] = blue;
+
+
+  root["brightness"] = brightness;
+  root["humidity"] = (String)humValue;
+  root["motion"] = (String)motionStatus;
+  root["ldr"] = (String)LDR;
+  root["temperature"] = (String)tempValue;
+  root["heatIndex"] = (String)calculateHeatIndex(humValue, tempValue);
+
+
+  char buffer[root.measureLength() + 1];
+  root.printTo(buffer, sizeof(buffer));
+  Serial.println("NEW TOPIC");
+  Serial.println(light_state_topic);
+  Serial.println(buffer);
+  client.publish(String(light_state_topic).c_str(), buffer, true);
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
