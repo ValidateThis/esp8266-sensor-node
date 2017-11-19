@@ -1,0 +1,26 @@
+//
+//// Motion
+//homeassistant/sensor/vtsensor1/pir/config
+//{
+//  "name":"VTSensor1 Motion",
+//  "device_class":"motion",
+//  "expire_after":"1",
+//  "state_topic":"homeassistant/sensor/vtsensor1/state",
+//  "value_template":"{{ value_json.motion}}"
+//}
+
+
+//homeassistant/binary_sensor/vtsensor2pir/config
+//{
+//  "name":"VTSensor2 Motion" ,
+//  "device_class":"motion",
+//  "state_topic":"homeassistant/sensor/vtsensor1/state",
+//  "payload_on":"motion detected",
+//  "payload_off":"standby",
+//  "value_template":"{{ value_json.motion}}"
+//}
+//
+//homeassistant/sensor/vtsensor1/state
+//{
+//  "motion":"motion detected"
+//}
